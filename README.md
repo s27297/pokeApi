@@ -4,3 +4,5 @@
 # npm install uuid --save
 # npm install yup --save
 # npm install formik --save
+
+#npm run dev
