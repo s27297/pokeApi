@@ -1,6 +1,18 @@
 'use client'
-export default function Filtr({onChange=f=>f,editowanie=-1}){
-    if(editowanie!=-1) return(<div></div>)
+
+// onChange={(cat)=>{
+//                  // console.log(cat.target.value)
+//                   setCategory(cat.target.value)
+//
+//           }}
+
+//editowanie jezeli !==-1 to nie pokazuj nic bo ktos edituje
+
+//expanse jezeli !==-1 to nie pokazuj nic bo ktos patrze na detali jakegos wydatku
+export default function Filtr({onChange=f=>f,editowanie=-1,expanse=-1}){
+    if(editowanie!==-1) return(<div></div>)
+    if(expanse!==-1)
+        return (<div></div>)
     return (
         <div>
             Sortowanie

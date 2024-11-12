@@ -1,10 +1,12 @@
 'use client'
 
+//wydatek to wydatek ktory trzeba rozwinacz
 
+//   onExpanseClick={()=>setExpanse(-1)} zeby bylo widacz ze nie trzeba pokazywac rozwineta informacje
 
 export default function ExpanseDetails({wydatek,onClick=f=>f}){
     return(
-        <section  >
+        <section style={{background:"red"}} >
 
 
             <h1>title={wydatek.title}</h1>

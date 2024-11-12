@@ -4,9 +4,16 @@ import {useInput} from "@/app/hooks/useInput";
 
 
 
+//wydatek===ten wydatek ktory trzeba editowac
 
-const EditWydatek=({wydatek,edit,editowanie=f=>f})=>{
-     console.log(wydatek)
+//edit to ustawenia stata editotowania na -1 zeby bylo widoczno kiedy ktos edituje
+
+//zaedidituj={(wydate)=>{
+//            const newList=list.map(wydatek=>wydate.id===wydatek.id?wydate:wydatek)
+//            setList(newList)
+//    }}
+const EditWydatek=({wydatek,edit=f=>f,zaedidituj=f=>f})=>{
+
     const [title,setTitle]=useInput(wydatek.title)
     const [date,setdate]=useInput(wydatek.date)
     const [opis,setopis]=useInput(wydatek.opis)
@@ -46,24 +53,24 @@ const EditWydatek=({wydatek,edit,editowanie=f=>f})=>{
             date: date.value,
             category: category.value
         }
-        editowanie(nowyWydatek)
+            zaedidituj(nowyWydatek)
 
         edit(-1)
     }
 
     }
     return(
-        <form>
-            <label><input type="text" id="title" {...title} required/> </label>
-            <label><input type="date" id="date" {...date} required/> </label>
-            <label><input type="number" id="kwota" {...kwota} required/> </label>
-            <label><input type="textarea" id="opis" {...opis} required/> </label>
-            <select {...category } required>
+        <form style={{background:"yellow"}}>
+            <label>Title:<input type="text" id="title" {...title} required/> </label><br/>
+            <label>Date: <input type="date" id="date" {...date} required/> </label><br/>
+            <label>kwota: <input type="number" id="kwota" {...kwota} required/> </label><br/>
+            <label>opis: <input type="textarea" id="opis" {...opis} required/> </label><br/>
+            Kategory: <select {...category} required>
                 <option value="Jedzenie">Jedzenie</option>
                 <option value="Rachunki">Rachunki</option>
                 <option value="Transport">Transport</option>
                 <option value="Rozrywka">Rozrywka</option>
-            </select>
+            </select><br/>
             <button type='submit'> Edit</button>
         </form>
     )

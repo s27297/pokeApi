@@ -3,10 +3,24 @@ import * as Yup from 'yup'
 import {ErrorMessage, Field, Form, Formik, useFormik} from "formik";
 import {v4} from "uuid";
 
+//  nowy={(valu)=>{
+//             //  console.log(valu)
+//           var newWydatki=[...list,valu]
+//               // console.log(newWydatki)
+//               setList(newWydatki)
+//           }}
 
-export default function AddWydatek({nowy=f=>f,editowanie}){
-if(editowanie!==-1)
+//editowanie=-1?teraz nikt nie edituje wydatek:ktos edituje wydatek(zeby nie wyswetlalo
+
+////expanse jezeli !==-1 to nie pokazuj nic bo ktos patrze na detali jakegos wydatku
+export default function AddWydatek({nowy=f=>f,editowanie,expanse=-1}){
+    console.log(nowy)
+    console.log(editowanie)
+    if(editowanie!==-1)
     return (<div></div>)
+
+    if(expanse!==-1)
+        return (<div></div>)
 
     return(
         <Formik

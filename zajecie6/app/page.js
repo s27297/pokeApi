@@ -16,7 +16,7 @@ export default function Home() {
     let [category,setCategory] = useState("All")
     let [date,setDate] = useState("1000.01.01")
     let [expanse,setExpanse]=useState(-1)
-    let [editowanie,setEditowanie]=useState("-1")
+    let [editowanie,setEditowanie]=useState(-1)
 
     const [list,setList]=useState(lista)
     function handleChange  (selectedOption) {
@@ -27,6 +27,7 @@ export default function Home() {
       <div>
 
           <AddWydatek
+              expanse={expanse}
               editowanie={editowanie}
           nowy={(valu)=>{
             //  console.log(valu)
@@ -39,35 +40,33 @@ export default function Home() {
 
 
           <Filtr
+              expanse={expanse}
               editowanie={editowanie}
               onChange={(cat)=>{
-                  console.log(cat.target.value)
+                 // console.log(cat.target.value)
                   setCategory(cat.target.value)
 
           }}
           ></Filtr>
           <DateFiltr
+              expanse={expanse}
               editowanie={editowanie
               }
               onChange={(cat)=>{
 
 
-              console.log(cat.target.value)
+            //  console.log(cat.target.value)
               setDate(cat.target.value)
           }
 
           }></DateFiltr>
    <Wyswetl
        zaedidituj={(wydate)=>{
-           const newList=list.filter(wydatek=>wydatek.id!==wydate.id)
-           console.log("Wydatek to :")
-           console.log(wydate)
-
-           const newList2=[...newList,wydate]
-
-           setList(newList2)
+           const newList=list.map(wydatek=>wydate.id===wydatek.id?wydate:wydatek)
+           setList(newList)
    }}
-       editClick={setEditowanie}
+       editClick={f=>{setEditowanie(f)
+       }}
        editowanie={editowanie}
        lista={list}
        category={category}
@@ -76,7 +75,7 @@ export default function Home() {
        onClick={(id)=>
           // <ExpanseDetails wydatek={list.filter(q=>q.id===id.target.id)[0]}></ExpanseDetails>
        {
-           console.log(id.target.id)
+           // console.log(id.target.id)
             setExpanse(id.target.id)
            // (<ExpanseDetails wydatek={list.filter(q=>q.id==id.target.id)[0]}></ExpanseDetails>)
        }
