@@ -10,18 +10,35 @@ import ExpanseDetails from "@/app/components/ExpanseDetails";
 import AddWydatek from "@/app/add_edit/AddWydatek";
 import {GlobalContext} from "@/app/Providers/WydatekProvider";
 
+import {faker} from "@faker-js/faker"
 
 function ExpenseFetcher(){
 
 }
 
 export default function Home() {
-    const {ladowanie,ustawListe}=useContext(GlobalContext)
+    const {ladowanie,ustawListe,data,setdata,nowy}=useContext(GlobalContext)
 
-    //const reference=useRef(null)
+    const generateFakeExpenses=()=>{return [...Array(1000)].map(()=>({
+        date:faker.date.between({ from: '2000-01-01', to: Date.now()}).toISOString().split('T')[0],
+        kwota:faker.number.int({min:1,max:1000}),
+        title:faker.word.words(2),
+        opis:faker.word.words({count:{min:3,max:100}}),
+        category:faker.helpers.arrayElement(["Jedzenie","Transport","Rozrywka","Rachunki"]),
+      //  date:faker.helpers.arrayElement(["2022-09-28"])
+    }))}
+    useEffect(() => {
+       // const cat=generateFakeExpenses()
 
+        //cat.map(expense=>{nowy((expense))})
+
+    }, []);
     useEffect(() => {
 
+        if(data) {
+            ustawListe(data);
+            return;
+        }
         ustawListe()
 
 

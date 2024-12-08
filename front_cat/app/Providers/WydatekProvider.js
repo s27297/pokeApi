@@ -3,6 +3,8 @@ import {useState,createContext} from "react";
 import lista from "../data/lista.json"
 
 
+const loadJSON=key=>key&&JSON.parse(localStorage.getItem(key))
+const saveJSON=(key,data)=>{localStorage.setItem(key,JSON.stringify(data))}
 
 
 export const GlobalContext=createContext()
@@ -16,13 +18,15 @@ export default function WydatekProvider({children}) {
     const [listPofiltrowana,setListPofiltrowana]=useState([])
     const [najnowszyWydatek, setNajnowszyWydatek] = useState(null)
     const [ladowanie,setLadowanie]=useState(false)
+    const [data,setData]=useState(loadJSON("list"))
 
-    async function zrobListe() {
+
+   async function zrobListe() {
         setLadowanie(true)
         await fetch("http://localhost:5000/expenses").then(r=>r.json())
-            .then(r=>{ setList(r);return r}).then(r=>console.log(r)).catch(e=>console.log(e))
-            .finally(()=>setLadowanie(false))
-        // .finally(()=>setTimeout(()=>setLadowanie(false),1000))
+            .then(r=>{ setList(r);saveJSON("list",r);return r}).then(r=>console.log(r)).catch(e=>console.log(e))
+        //    .finally(()=>setLadowanie(false))
+         .finally(()=>setTimeout(()=>setLadowanie(false),1000))
     }
     const znajdzNainowszyWydatek=(lis)=>{
         if(lis) {
@@ -32,6 +36,10 @@ export default function WydatekProvider({children}) {
         }
     }
     const ustawListe=  (lis) => {
+        if(lis){
+            setList(lis)
+            return;
+        }
          zrobListe()
 
 
@@ -62,13 +70,17 @@ export default function WydatekProvider({children}) {
 
     const onClickToStartOrEndEdit=(id)=>
     {
+    console.log(id)
 
         setEditowanie(id)
+        console.log(editowanie)
+
+
     }
     const nowy=(wydate)=>{
 
         async function zaeditu() {
-            console.log(wydate)
+             console.log(wydate)
 
             await fetch(`http://localhost:5000/expenses/`,
                 {method:"POST",
@@ -118,7 +130,7 @@ export default function WydatekProvider({children}) {
         <GlobalContext.Provider value={{
             onRemove, category,date,expanse,editowanie,nowy,onCategoryChange,onDateChange,onClickToExpanse,
             onUnExpanseClick,ustawListe,list,onClickToStartOrEndEdit,zaedituj,
-            ustawListePofiltrowana,listPofiltrowana,najnowszyWydatek,ladowanie}}
+            ustawListePofiltrowana,listPofiltrowana,najnowszyWydatek,ladowanie,data,setData}}
         >
             {children}
         </GlobalContext.Provider>

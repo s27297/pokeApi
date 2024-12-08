@@ -22,9 +22,10 @@ import {GlobalContext} from "@/app/Providers/WydatekProvider";
 // editClick={f=>{setEditowanie(f)
 //        }}zeby zaczacz editowac
 export default function Wydatek({wydatek}){
-    const {onRemove,onClickToExpanse,onClickToStartOrEndEdit,najnowszyWydatek,listPofiltrowana}=useContext(GlobalContext)
+    const {onRemove,onClickToExpanse,onClickToStartOrEndEdit,najnowszyWydatek,listPofiltrowana,editowanie,setEditowanie}=useContext(GlobalContext)
     // console.log(najnowszyWydatek)
     const txtInputRef=useRef(null)
+    // console.log("cat")
 
     useLayoutEffect(() => {
         if (txtInputRef.current) {
@@ -50,6 +51,7 @@ export default function Wydatek({wydatek}){
                 <p id={wydatek.id}>date={wydatek.date}</p><br/>
             </div>
             <button onClick={() => {
+
                 onClickToStartOrEndEdit(wydatek.id)
             }}>Edituj</button>
 

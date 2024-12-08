@@ -22,10 +22,10 @@ export default function Filtr(){
             Sortowanie
             <select id={'cat'} onChange={onCategoryChange} style={{color:'red', border:'1px solid black',margin:'2px'}}>
                 <option value="All">All</option>
-                <option value="Jedzenie">Jedzenie</option>
-                <option value="Transport">Transport</option>
-                <option value="Rozrywka">Rozrywka</option>
-                <option value="Rachunki">Rachunki</option>
+                <option value="jedzenie">jedzenie</option>
+                <option value="transport">transport</option>
+                <option value="rozrywka">rozrywka</option>
+                <option value="rachunki">rachunki</option>
             </select>
         </div>
     )
