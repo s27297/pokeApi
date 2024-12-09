@@ -15,6 +15,7 @@ import {useInput} from "@/app/hooks/useInput";
 //            setList(newList)
 //    }}
 const EditWydatek=({wydatek})=>{
+
     const {list,zaedituj,onClickToStartOrEndEdit}=useContext(GlobalContext)
 
     const [title,setTitle]=useInput(wydatek.title)

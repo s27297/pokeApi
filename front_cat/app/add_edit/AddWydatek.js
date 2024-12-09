@@ -22,7 +22,6 @@ export default function AddWydatek(){
 
 
 
-
     if(editowanie!==-1)
         return (<div></div>)
 

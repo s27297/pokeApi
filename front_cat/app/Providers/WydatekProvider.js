@@ -3,13 +3,16 @@ import {useState,createContext} from "react";
 import lista from "../data/lista.json"
 
 
-const loadJSON=key=>key&&JSON.parse(localStorage.getItem(key))
-const saveJSON=(key,data)=>{localStorage.setItem(key,JSON.stringify(data))}
+
+const loadJSON=(key)=>key&&JSON.parse(localStorage.getItem(key))
+const saveJSON=(key,data)=>{window.localStorage.setItem(key,JSON.stringify(data))}
 
 
 export const GlobalContext=createContext()
 
 export default function WydatekProvider({children}) {
+
+
     const [category, setCategory] = useState("All")
     const [date, setDate] = useState("1000.01.01")
     const [expanse, setExpanse] = useState(-1)
@@ -19,14 +22,15 @@ export default function WydatekProvider({children}) {
     const [najnowszyWydatek, setNajnowszyWydatek] = useState(null)
     const [ladowanie,setLadowanie]=useState(false)
     const [data,setData]=useState(loadJSON("list"))
+    const [page,setPage]=useState(1)
 
 
-   async function zrobListe() {
+    async function zrobListe() {
         setLadowanie(true)
         await fetch("http://localhost:5000/expenses").then(r=>r.json())
             .then(r=>{ setList(r);saveJSON("list",r);return r}).then(r=>console.log(r)).catch(e=>console.log(e))
-        //    .finally(()=>setLadowanie(false))
-         .finally(()=>setTimeout(()=>setLadowanie(false),1000))
+            //    .finally(()=>setLadowanie(false))
+            .finally(()=>setTimeout(()=>setLadowanie(false),1000))
     }
     const znajdzNainowszyWydatek=(lis)=>{
         if(lis) {
@@ -40,7 +44,7 @@ export default function WydatekProvider({children}) {
             setList(lis)
             return;
         }
-         zrobListe()
+        zrobListe()
 
 
     }
@@ -70,7 +74,7 @@ export default function WydatekProvider({children}) {
 
     const onClickToStartOrEndEdit=(id)=>
     {
-    console.log(id)
+        console.log(id)
 
         setEditowanie(id)
         console.log(editowanie)
@@ -80,7 +84,7 @@ export default function WydatekProvider({children}) {
     const nowy=(wydate)=>{
 
         async function zaeditu() {
-             console.log(wydate)
+            console.log(wydate)
 
             await fetch(`http://localhost:5000/expenses/`,
                 {method:"POST",
@@ -119,7 +123,7 @@ export default function WydatekProvider({children}) {
             await fetch(`http://localhost:5000/expenses/${id}`,
                 {method:"DELETE",
 
-                    })
+                })
                 .then(r=>console.log(r.json()))
                 .catch(e=>alert(e))
                 .finally(()=>{zrobListe()})
@@ -130,7 +134,7 @@ export default function WydatekProvider({children}) {
         <GlobalContext.Provider value={{
             onRemove, category,date,expanse,editowanie,nowy,onCategoryChange,onDateChange,onClickToExpanse,
             onUnExpanseClick,ustawListe,list,onClickToStartOrEndEdit,zaedituj,
-            ustawListePofiltrowana,listPofiltrowana,najnowszyWydatek,ladowanie,data,setData}}
+            ustawListePofiltrowana,listPofiltrowana,najnowszyWydatek,ladowanie,data,setData,page,setPage}}
         >
             {children}
         </GlobalContext.Provider>

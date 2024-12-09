@@ -4,12 +4,13 @@ import ExpanseDetails from "@/app/components/ExpanseDetails";
 import EditWydatek from "@/app/add_edit/EditWydatek";
 import {useContext, useLayoutEffect, useState} from "react";
 import {GlobalContext} from "@/app/Providers/WydatekProvider";
- const rowsPerPage=3
+import Pagination from "@/app/components/Pagination";
+import {FixedSizeList} from "react-window";
 
 
 export default function Wyswetl(){
 
-    let {category,date,expanse,editowanie,list,onCategoryChange,onDateChange, ustawListePofiltrowana,listPofiltrowana}=useContext(GlobalContext)
+    let {page,setPage,category,date,expanse,editowanie,list,onCategoryChange,onDateChange, ustawListePofiltrowana,listPofiltrowana}=useContext(GlobalContext)
 
     if(!list)return<p>Pusta lista</p>
     if(expanse!==-1)return (<ExpanseDetails wydatek={list.filter(q=>q.id==expanse)[0]}></ExpanseDetails> )
@@ -17,7 +18,6 @@ export default function Wyswetl(){
     //lab7
 
 
-    const [page,setPage]=useState(1)
 
     useLayoutEffect(() => {
         async function posortuj(){
@@ -35,22 +35,14 @@ export default function Wyswetl(){
         <div style={{...style}}>
 
             <Wydatek  key={listPofiltrowana[index].id}
-                     wydatek={listPofiltrowana[index]} />
+                      wydatek={listPofiltrowana[index]} />
         </div>
     )
-    const listaNaPage=listPofiltrowana.slice(page * rowsPerPage - rowsPerPage, page * rowsPerPage);
-    return <div>
 
-        {listaNaPage.map(wydatek=> <Wydatek key={wydatek.id}
-                                            wydatek={wydatek}>
+    //paginacja
+   return <Pagination />
 
-        </Wydatek>)}
-        <div style={{color:"red"}}>
-        {page>1&& <button style={{float:"left"}} onClick={()=>setPage(page-1)}>Poprzednia</button>}
-        {page*rowsPerPage<listPofiltrowana.length&& <button  style={{float:"right"}} onClick={()=>setPage(page+1)}>Nastepna</button>}
-        </div>
-    </div>
-    //
+    //zwykla
     // return(
     // <div style={{backgroundColor: "lightblue"}}>
     //     {listPofiltrowana.map(wydatek => <Wydatek key={wydatek.id}
@@ -62,6 +54,8 @@ export default function Wyswetl(){
     //     <br/>
     // </div>
 // )
+    //react-window
+
     // return (
     //     <FixedSizeList
     //         height={window.innerHeight}

@@ -25,12 +25,12 @@ export default function Home() {
         title:faker.word.words(2),
         opis:faker.word.words({count:{min:3,max:100}}),
         category:faker.helpers.arrayElement(["Jedzenie","Transport","Rozrywka","Rachunki"]),
-      //  date:faker.helpers.arrayElement(["2022-09-28"])
+        //  date:faker.helpers.arrayElement(["2022-09-28"])
     }))}
     useEffect(() => {
-       // const cat=generateFakeExpenses()
+        // const cat=generateFakeExpenses()
 
-        //cat.map(expense=>{nowy((expense))})
+       // generateFakeExpenses().map(expense=>{nowy((expense))})
 
     }, []);
     useEffect(() => {
@@ -44,15 +44,15 @@ export default function Home() {
 
     }, []);
     return (<div>
-        {ladowanie && <p>loading</p>}
-        {!ladowanie &&
-        <div>
-            <AddWydatek></AddWydatek>
-            <Filtr
-            ></Filtr>
-            <DateFiltr></DateFiltr>
-            <Wyswetl>
-            </Wyswetl>
-        </div>}</div>
+            {ladowanie && <p>loading</p>}
+            {!ladowanie &&
+                <div>
+                    <AddWydatek></AddWydatek>
+                    <Filtr
+                    ></Filtr>
+                    <DateFiltr></DateFiltr>
+                    <Wyswetl>
+                    </Wyswetl>
+                </div>}</div>
     );
 }

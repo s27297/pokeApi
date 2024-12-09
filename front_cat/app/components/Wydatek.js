@@ -38,24 +38,24 @@ export default function Wydatek({wydatek}){
     },[listPofiltrowana] );
     return(
         <>
-        <div  id={wydatek.id}  style={{backgroundColor:"lightblue"}} >
-            <br/>
-            <button  onClick={() => onRemove(wydatek.id)}>
-                <FaTrash/>
-            </button>
-            <div>
-                {wydatek.id===najnowszyWydatek && (<p onClick={onClickToExpanse} ref={txtInputRef} id={wydatek.id}> title={wydatek.title}</p>)}
-                {wydatek.id!==najnowszyWydatek && (<p onClick={onClickToExpanse} id={wydatek.id}> title={wydatek.title}</p>)}
-                <p id={wydatek.id} >kwota={wydatek.kwota}</p>
-                <p id={wydatek.id}>category={wydatek.category}</p>
-                <p id={wydatek.id}>date={wydatek.date}</p><br/>
+            <div  id={wydatek.id}  style={{backgroundColor:"lightblue"}} >
+                <br/>
+                <button  onClick={() => onRemove(wydatek.id)}>
+                    <FaTrash/>
+                </button>
+                <div>
+                    {wydatek.id===najnowszyWydatek && (<p onClick={onClickToExpanse} ref={txtInputRef} id={wydatek.id}> title={wydatek.title}</p>)}
+                    {wydatek.id!==najnowszyWydatek && (<p onClick={onClickToExpanse} id={wydatek.id}> title={wydatek.title}</p>)}
+                    <p id={wydatek.id} >kwota={wydatek.kwota}</p>
+                    <p id={wydatek.id}>category={wydatek.category}</p>
+                    <p id={wydatek.id}>date={wydatek.date}</p><br/>
+                </div>
+                <button onClick={() => {
+
+                    onClickToStartOrEndEdit(wydatek.id)
+                }}>Edituj</button>
+
             </div>
-            <button onClick={() => {
-
-                onClickToStartOrEndEdit(wydatek.id)
-            }}>Edituj</button>
-
-        </div>
         </>
     )
 }
