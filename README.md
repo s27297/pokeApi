@@ -5,4 +5,5 @@
 # npm install yup --save
 # npm install formik --save
 # npm install react-icons --save
+# npm install @faker-js/faker --save-dev
 #npm run dev
